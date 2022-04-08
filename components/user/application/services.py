@@ -25,7 +25,7 @@ class UserInfo(DTO):
 @component
 class UserService:
     users_repo: interfaces.UsersRepo
-    publisher: Optional[Publisher] = None
+    publisher: Publisher
 
     @join_point
     @validate_arguments

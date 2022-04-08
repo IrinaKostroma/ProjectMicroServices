@@ -27,7 +27,7 @@ class BookInfo(DTO):
 @component
 class BookService:
     books_repo: interfaces.BooksRepo
-    publisher: Optional[Publisher] = None
+    publisher: Publisher
 
     @join_point
     @validate_arguments

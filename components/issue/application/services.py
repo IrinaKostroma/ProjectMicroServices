@@ -1,4 +1,4 @@
-from typing import Optional
+from typing import Optional, List
 from datetime import datetime
 
 from classic.components import component
@@ -34,6 +34,6 @@ class IssueService:
 
     @join_point
     @validate_arguments
-    def get_all_issues(self) -> Optional[Issue]:
+    def get_all_issues(self) -> List[Issue]:
         issues = self.issues_repo.get_all_issues()
         return issues

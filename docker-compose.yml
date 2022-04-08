@@ -14,7 +14,7 @@ services:
       - "rabbitmq_data:/data"
 
   nginx:
-    build: ./nginx/
+    build: ./nginx
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     restart: always
@@ -54,6 +54,10 @@ services:
       - DB_HOST=postgresdb
       - DB_PORT=5432
       - DB_DATABASE=users_database
+      - RABBIT_USER = user
+      - RABBIT_PASSWORD = password
+      - RABBIT_HOST = rabbitmq
+      - RABBIT_PORT = 5672
     volumes:
       - ./components/user:/app/user
 
@@ -73,6 +77,10 @@ services:
       - DB_HOST=postgresdb
       - DB_PORT=5432
       - DB_DATABASE=books_database
+      - RABBIT_USER = user
+      - RABBIT_PASSWORD = password
+      - RABBIT_HOST = rabbitmq
+      - RABBIT_PORT = 5672
     volumes:
       - ./components/book:/app/book
 
@@ -92,6 +100,10 @@ services:
       - DB_HOST=postgresdb
       - DB_PORT=5432
       - DB_DATABASE=issues_database
+      - RABBIT_USER = user
+      - RABBIT_PASSWORD = password
+      - RABBIT_HOST = rabbitmq
+      - RABBIT_PORT = 5672
     volumes:
       - ./components/issue:/app/issue
 
@@ -109,6 +121,10 @@ services:
       - DB_HOST=postgresdb
       - DB_PORT=5432
       - DB_DATABASE=issues_database
+      - RABBIT_USER = user
+      - RABBIT_PASSWORD = password
+      - RABBIT_HOST = rabbitmq
+      - RABBIT_PORT = 5672
     volumes:
       - ./components/issue:/app/issue
 
