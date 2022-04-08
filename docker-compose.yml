@@ -111,8 +111,8 @@ services:
     build:
       context: ./components/issue
       dockerfile: Dockerfile
-#    command: python issue/composites/consumer.py
-    command: python3 -m composites.consumer
+#    command: python composites.consumer.py
+    command: python3 -m composites.consumer.py
     depends_on:
       - postgresdb
     environment:

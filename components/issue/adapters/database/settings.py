@@ -7,12 +7,16 @@ from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
+
+    # DB_URL: str = f"postgresql+psycopg2://postgres:p_passwordd@postgresdb:5432/issues_database"
+
     DB_URL: str = f"postgresql+psycopg2://" \
                       f'{os.getenv("DB_USER", "user")}:' \
                       f'{os.getenv("DB_PASSWORD", "password")}@' \
                       f'{os.getenv("DB_HOST", "postgresdb")}:' \
                       f'{os.getenv("DB_PORT", "5432")}/' \
                       f'{os.getenv("DB_DATABASE", "issues_database")}'
+
 
     LOGGING_LEVEL: str = 'INFO'
     SA_LOGS: bool = False
