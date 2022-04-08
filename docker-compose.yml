@@ -6,7 +6,7 @@ services:
     image: "rabbitmq:3-management"
     ports:
       - "5672:5672"
-      - "15672:15672"
+#      - "15672:15672"
     environment:
       - RABBITMQ_DEFAULT_USER=user
       - RABBITMQ_DEFAULT_PASS=password
@@ -45,7 +45,7 @@ services:
     ports:
       - "8000:8000"
     command: gunicorn -b 0.0.0.0:8000 composites.user_api:app --reload
-    restart: unless-stopped
+#    restart: unless-stopped
     depends_on:
       - postgresdb
     environment:
@@ -66,7 +66,7 @@ services:
       context: ./components/book
       dockerfile: Dockerfile
     command: gunicorn -b 0.0.0.0:8001 book.composites.book_api:app --reload
-    restart: unless-stopped
+#    restart: unless-stopped
     depends_on:
       - postgresdb
     ports:
@@ -89,7 +89,7 @@ services:
       context: ./components/issue
       dockerfile: Dockerfile
     command: gunicorn -b 0.0.0.0:8002 issue.composites.issue_api:app --reload
-    restart: unless-stopped
+#    restart: unless-stopped
     depends_on:
       - postgresdb
     ports:

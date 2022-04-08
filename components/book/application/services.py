@@ -32,10 +32,8 @@ class BookService:
     @join_point
     @validate_arguments
     def add_book(self, book_info: BookInfo) -> Book:
-        book = self.books_repo.get_by_id(book_info.id)
-        if book is None:
-            book = book_info.create_obj(Book)
-            self.books_repo.add(book)
+        book = book_info.create_obj(Book)
+        self.books_repo.add(book)
 
         if self.publisher:
             self.publisher.plan(
