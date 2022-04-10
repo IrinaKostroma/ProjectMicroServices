@@ -30,10 +30,8 @@ class UserService:
     @join_point
     @validate_arguments
     def add_user(self, user_info: UserInfo) -> User:
-        user = self.users_repo.get_by_id(user_info.id)
-        if user is None:
-            user = user_info.create_obj(User)
-            self.users_repo.add(user)
+        user = user_info.create_obj(User)
+        self.users_repo.add(user)
 
         if self.publisher:
             self.publisher.plan(
