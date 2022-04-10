@@ -22,14 +22,14 @@ class DB:
 
 
 class Application:
-    issue = services.IssueService(
-        issue_repo=DB.issues_repo,
+    issues = services.IssueService(
+        issues_repo=DB.issues_repo,
     )
 
 
 class MessageBus:
     connection = Connection(Settings.message_bus.BROKER_URL)
-    consumer = message_bus.create_consumer(connection, Application.issue)
+    consumer = message_bus.create_consumer(connection, Application.issues)
 
     @staticmethod
     def declare_scheme():

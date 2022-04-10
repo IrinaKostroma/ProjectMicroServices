@@ -16,8 +16,8 @@ class BooksRepo(BaseRepository, interfaces.BooksRepo):
         query = select(Book).where(Book.id == id_)
         return self.session.execute(query).scalars().one_or_none()
 
-    def get_all_books(self) -> List[Book]:
-        query = select(Book)  # .order_by(Book.id)
+    def get_all(self) -> List[Book]:
+        query = select(Book)
         return self.session.execute(query).scalars().all()
 
     def add(self, book: Book):
@@ -35,3 +35,6 @@ class BooksRepo(BaseRepository, interfaces.BooksRepo):
                 book = Book()
                 self.add(book)
         return book
+
+    def remove(self, book: Book) -> None:
+        self.session.delete(book)

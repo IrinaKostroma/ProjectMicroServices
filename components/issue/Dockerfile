@@ -1,22 +1,17 @@
-FROM python:3.7-slim
+FROM python:3.7-alpine
 
-WORKDIR /app/issue
-
-RUN pip install --upgrade --no-cache pip
-RUN pip install psycopg2-binary
-
-COPY setup.cfg setup.py ./
-
-RUN pip install --no-cache-dir -e .[dev]
-
-#COPY requirements.txt .
-#RUN pip install -r requirements.txt
-
-COPY . .
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-# RUN pip install hupper waitress
+COPY ./setup.cfg .
+COPY ./setup.py .
+RUN pip install --upgrade -e '.[dev]'
 
+COPY . .
+
+
+# RUN pip install hupper waitress
 # CMD ["python", "run_api.py"]
 

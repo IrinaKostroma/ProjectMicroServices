@@ -6,8 +6,9 @@ from sqlalchemy import create_engine
 from classic.messaging_kombu import KombuPublisher
 from classic.sql_storage import TransactionContext
 
-from issue.application.services import IssueService
+from issue.application import services
 from issue.adapters import database, issue_api, message_bus
+from issue.adapters.database import repositories
 
 
 class Settings:
@@ -37,19 +38,16 @@ class MessageBus:
 
 class Application:
 
-    issue_service = IssueService(issues_repo=DB.issues_repo)
-
-    is_dev_mode = Settings.issue_api.IS_DEV_MODE
-    allow_origins = Settings.issue_api.ALLOW_ORIGINS
+    issues = services.IssueService(issues_repo=DB.issues_repo)
 
 
-# class Aspects:
-#     services.join_points.join(DB.context)
-#     user_api.join_points.join(DB.context)
+class Aspects:
+    services.join_points.join(DB.context)
+    issue_api.join_points.join(DB.context)
 
 
 app = issue_api.create_app(
-    issues=Application.issue_service,
+    issues=Application.issues,
 )
 
 # with make_server('', 8002, app) as httpd:

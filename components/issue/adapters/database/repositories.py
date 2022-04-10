@@ -16,6 +16,6 @@ class IssuesRepo(BaseRepository, interfaces.IssuesRepo):
         self.session.flush()
         self.session.commit()
 
-    def get_all_issues(self) -> Optional[Issue]:
+    def get_all(self) -> Optional[Issue]:
         query = select(Issue)
         return self.session.execute(query).scalars().all()

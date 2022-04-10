@@ -6,7 +6,7 @@ from typing import Optional
 @attr.dataclass
 class Issue:
     action: str
-    user_id: int
-    book_id: int
     created: datetime
+    user_id: Optional[int] = None
+    book_id: Optional[int] = None
     id: Optional[int] = None

@@ -1,19 +1,18 @@
-from wsgiref.simple_server import make_server
-
 from kombu import Connection
 from sqlalchemy import create_engine
 
 from classic.messaging_kombu import KombuPublisher
 from classic.sql_storage import TransactionContext
 
-from user.application.services import UserService
 from user.adapters import database, user_api, message_bus
+from user.adapters.database import repositories
+from user.application import services
 
 
 class Settings:
     db = database.Settings()
-    message_bus = message_bus.Settings()
     user_api = user_api.Settings()
+    message_bus = message_bus.Settings()
 
 
 class DB:
@@ -22,7 +21,7 @@ class DB:
 
     context = TransactionContext(bind=engine)
 
-    users_repo = database.repositories.UsersRepo(context=context)
+    users_repo = repositories.UsersRepo(context=context)
 
 
 class MessageBus:
@@ -36,22 +35,16 @@ class MessageBus:
 
 
 class Application:
-
-    user_service = UserService(users_repo=DB.users_repo,
-                               publisher=MessageBus.publisher)
-
-    is_dev_mode = Settings.user_api.IS_DEV_MODE
-    allow_origins = Settings.user_api.ALLOW_ORIGINS
+    user_service = services.UserService(users_repo=DB.users_repo,
+                                        publisher=MessageBus.publisher)
 
 
-# class Aspects:
-#     services.join_points.join(DB.context)
-#     user_api.join_points.join(DB.context)
+class Aspects:
+    services.join_points.join(DB.context)
+    user_api.join_points.join(MessageBus.publisher, DB.context)
 
 
-app = user_api.create_app(
-    users=Application.user_service,
-)
+app = user_api.create_app(users=Application.user_service)
 
 # with make_server('', 8000, app) as httpd:
 #     print(f'Server running on http://localhost:{httpd.server_port} ...')

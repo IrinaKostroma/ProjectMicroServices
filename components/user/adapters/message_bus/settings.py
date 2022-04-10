@@ -1,30 +1,12 @@
 import os
-from typing import Optional
 
 from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    # BROKER_URL: Optional[str] = None
 
-    BROKER_URL = "amqp://user:password@rabbitmq:5672//"
-
-    # BROKER_URL: str = f"amqp://" \
-    #                   f'{os.getenv("RABBITMQ_USER", "user")}:' \
-    #                   f'{os.getenv("RABBITMQ_PASSWORD", "password")}@' \
-    #                   f'{os.getenv("RABBITMQ_HOST", "127.0.0.1")}:' \
-    #                   f'{os.getenv("RABBITMQ_PORT", "5672")}'
-
-    LOGGING_LEVEL: str = 'INFO'
-
-    @property
-    def LOGGING_CONFIG(self):
-        return {
-            'loggers': {
-                'kombu': {
-                    'handlers': ['default'],
-                    'level': self.LOGGING_LEVEL,
-                    'propagate': False
-                }
-            }
-        }
+    BROKER_URL: str = f'amqp://' \
+                      f"{os.getenv('RABBIT_USER', 'user')}:" \
+                      f"{os.getenv('RABBIT_PASSWORD', 'password')}@" \
+                      f"{os.getenv('RABBIT_HOST', 'localhost')}:" \
+                      f"{os.getenv('RABBIT_PORT', 5672)}"

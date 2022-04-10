@@ -1,10 +1,7 @@
-from typing import Tuple, Union
-
 from classic.http_api import App
 
+from book.adapters.book_api import controllers
 from book.application import services
-
-from .import controllers
 
 
 def create_app(books: services.BookService) -> App:

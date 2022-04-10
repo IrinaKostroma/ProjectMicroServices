@@ -15,7 +15,7 @@ class UsersRepo(BaseRepository, interfaces.UsersRepo):
         query = select(User).where(User.id == id_)
         return self.session.execute(query).scalars().one_or_none()
 
-    def get_all_users(self) -> List[User]:
+    def get_all(self) -> List[User]:
         query = select(User)  # .order_by(User.id)
         return self.session.execute(query).scalars().all()
 
@@ -34,3 +34,6 @@ class UsersRepo(BaseRepository, interfaces.UsersRepo):
                 user = User()
                 self.add(user)
         return user
+
+    def remove(self, user: User) -> None:
+        self.session.delete(user)

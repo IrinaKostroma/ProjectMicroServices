@@ -1,8 +1,7 @@
 from classic.http_api import App
 
+from issue.adapters.issue_api import controllers
 from issue.application import services
-
-from .import controllers
 
 
 def create_app(issues: services.IssueService) -> App:

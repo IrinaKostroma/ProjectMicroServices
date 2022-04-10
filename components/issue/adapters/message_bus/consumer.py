@@ -16,4 +16,5 @@ def create_consumer(
         issues.add_issue,
         'log',
     )
+
     return consumer

@@ -40,21 +40,27 @@ class UserService:
                 Message('log', {'action': 'add_user',
                                 'user_id': user.id,
                                 'book_id': None,
-                                'data': datetime.now()
+                                'created': datetime.now()
                                 })
             )
         return user
 
     @join_point
     @validate_arguments
-    def get_user(self, user_id: int) -> User:
-        user = self.users_repo.get_by_id(user_id)
+    def get_user(self, id: int) -> User:
+        user = self.users_repo.get_by_id(id)
         if user is None:
-            raise NoUser(number=user_id)
+            raise NoUser(number=id)
         return user
 
     @join_point
     @validate_arguments
     def get_all_users(self) -> List[User]:
-        users = self.users_repo.get_all_users()
+        users = self.users_repo.get_all()
         return users
+
+    @join_point
+    @validate_arguments
+    def remove_user(self, id: int):
+        user = self.get_user(id)
+        self.users_repo.remove(user)

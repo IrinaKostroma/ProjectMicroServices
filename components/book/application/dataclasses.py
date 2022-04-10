@@ -4,10 +4,10 @@ import attr
 
 @attr.dataclass
 class Book:
+    id: Optional[int] = None
     title: Optional[str] = None
     author: Optional[str] = None
-    year: Optional[int] = None
-    id: Optional[int] = None
+    user_id: Optional[int] = None
 
 
 
