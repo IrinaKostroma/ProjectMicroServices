@@ -1,0 +1,36 @@
+#------------------------------------
+# GitHub Action for Project2 NEW
+#
+#------------------------------------
+
+name: GitHubActions-Project2 NEW
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Git clone my repo
+      uses: actions/checkout@v3
+    
+    - name: Docker-build
+      run: docker-compose build
+
+    - name: Docker-run
+      run: docker-compose run
+
+    - name: Test with pytest - Users
+      run: docker-compose run user_service python3 -m pytest -v
+
+    - name: Test with pytest - Book
+      run: docker-compose run book_service python3 -m pytest -v
+
+    - name: Test with pytest - Issues
+      run: docker-compose run issues_service python3 -m pytest -v
