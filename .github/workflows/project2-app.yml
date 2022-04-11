@@ -7,8 +7,9 @@ name: GitHubActions-Project2
 
 on:
   push:
-    branches:
-      - master
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
   build:
@@ -17,7 +18,7 @@ jobs:
 
     steps:
     - name: Git clone my repo
-    - uses: actions/checkout@v3
+      uses: actions/checkout@v3
     
     - name: Docker-build
       run: docker-compose build
