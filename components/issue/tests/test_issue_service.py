@@ -9,7 +9,7 @@ data = {
 }
 
 
-def test_add_issue(service,issues_repo):
+def test_add_issue(service, issues_repo):
     service.add_issue(**data)
     service.issues_repo.add.assert_called_once()
 
