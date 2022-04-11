@@ -31,7 +31,7 @@ def books_repo(book):
     books_repo = Mock(interfaces.BooksRepo)
     books_repo.add_book = Mock(return_value=book)
     books_repo.get_book = Mock(return_value=book)
-    books_repo.get_all_books = Mock(return_value=book)
+    books_repo.get_all_books = Mock(return_value=[book, ])
     books_repo.take_by_user = Mock(return_value=book)
     books_repo.return_book = Mock(return_value=book)
     books_repo.remove_book = Mock(return_value=book)
