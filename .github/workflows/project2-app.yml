@@ -27,10 +27,10 @@ jobs:
       run: docker-compose run
 
     - name: Test with pytest - Users
-      run: docker-compose run user_service python3 -m py.test -v
+      run: docker-compose run user_service python3 -m pytest -v
 
     - name: Test with pytest - Book
-      run: docker-compose run book_service python3 -m py.test -v
+      run: docker-compose run book_service python3 -m pytest -v
 
     - name: Test with pytest - Issues
-      run: docker-compose run issues_service python3 -m py.test -v
+      run: docker-compose run issues_service python3 -m pytest -v
